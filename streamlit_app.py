@@ -16,7 +16,6 @@ def load_data():
 
     df["color"] = "blue"
     df["color"] = df["color"].mask(df["救急"] > 0, "red")
-    df["color"] = df["color"].mask(df["薬局"] > 0, "green")
 
     return df
 
