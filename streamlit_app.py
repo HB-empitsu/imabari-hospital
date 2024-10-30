@@ -5,9 +5,9 @@ import folium
 import streamlit as st
 
 st.set_page_config(
-    page_title="今治市の医療機関・薬局", page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None
+    page_title="今治市の医療機関", page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None
 )
-st.title("今治市の医療機関・薬局")
+st.title("今治市の医療機関")
 
 
 @st.cache_data()
@@ -27,7 +27,6 @@ option = [
     "救急",
     "内科",
     "小児科",
-    "薬局",
     "感染症内科",
     "血液内科",
     "糖尿病内科",
@@ -80,7 +79,7 @@ st.subheader("医療機関")
 st.dataframe(
     filtered_df[["名称", "住所", "電話番号", "URL", "診療科目名"]],
     column_config={
-        "URL": st.column_config.LinkColumn("リンク", display_text="🔗"),
+        "URL": st.column_config.LinkColumn("リンク"),
     },
     hide_index=True,
     use_container_width=True,
