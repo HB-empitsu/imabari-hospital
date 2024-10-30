@@ -70,7 +70,7 @@ option = [
 chois = st.multiselect("診療科目を選択してください", option, max_selections=3, placeholder="選んでください")
 
 
-filtered_df = df[df[chois].any(axis=1)].copy() if chois else df.copy()
+filtered_df = df[df[chois].all(axis=1)].copy() if chois else df.copy()
 
 
 st.subheader("医療機関")
