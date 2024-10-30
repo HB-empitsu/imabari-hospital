@@ -72,39 +72,43 @@ chois = st.multiselect("診療科目を選択してください", option, max_se
 
 filtered_df = df[df[chois].all(axis=1)].copy() if chois else df.copy()
 
+if filtered_df.empty:
+    st.write("医療機関が見つかりません")
 
-st.subheader("医療機関")
+else:
 
-st.dataframe(
-    filtered_df[["名称", "住所", "電話番号", "URL", "診療科目名"]],
-    column_config={
-        "URL": st.column_config.LinkColumn("リンク"),
-    },
-    hide_index=True,
-    use_container_width=True,
-)
-
-st.subheader("地図表示")
-
-df_map = filtered_df[["名称", "住所", "電話番号", "診療科目名", "緯度", "経度", "URL", "color"]]
-
-m = folium.Map(
-    location=[df_map["緯度"].mean(), df_map["経度"].mean()],
-    tiles="https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
-    attr='&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html">国土地理院</a>',
-    zoom_start=12,
-)
-
-for _, r in df_map.iterrows():
-    folium.Marker(
-        location=[r["緯度"], r["経度"]],
-        popup=folium.Popup(
-            f'<p><a href="{r["URL"]}" target="_blank">{r["名称"]}</a></p><p>{r["住所"]}</p><p>{r["電話番号"]}</p>',
-            max_width=300,
-        ),
-        tooltip=r["名称"],
-        icon=folium.Icon(color=r["color"]),
-    ).add_to(m)
-
-# マップをストリームリットに表示
-st_data = st_folium(m, use_container_width=True, returned_objects=[])
+    st.subheader("医療機関")
+    
+    st.dataframe(
+        filtered_df[["名称", "住所", "電話番号", "URL", "診療科目名"]],
+        column_config={
+            "URL": st.column_config.LinkColumn("リンク"),
+        },
+        hide_index=True,
+        use_container_width=True,
+    )
+    
+    st.subheader("地図表示")
+    
+    df_map = filtered_df[["名称", "住所", "電話番号", "診療科目名", "緯度", "経度", "URL", "color"]]
+    
+    m = folium.Map(
+        location=[df_map["緯度"].mean(), df_map["経度"].mean()],
+        tiles="https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        attr='&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html">国土地理院</a>',
+        zoom_start=12,
+    )
+    
+    for _, r in df_map.iterrows():
+        folium.Marker(
+            location=[r["緯度"], r["経度"]],
+            popup=folium.Popup(
+                f'<p><a href="{r["URL"]}" target="_blank">{r["名称"]}</a></p><p>{r["住所"]}</p><p>{r["電話番号"]}</p>',
+                max_width=300,
+            ),
+            tooltip=r["名称"],
+            icon=folium.Icon(color=r["color"]),
+        ).add_to(m)
+    
+    # マップをストリームリットに表示
+    st_data = st_folium(m, use_container_width=True, returned_objects=[])
