@@ -82,7 +82,7 @@ else:
     st.dataframe(
         filtered_df[["名称", "住所", "電話番号", "URL", "診療科目名"]],
         column_config={
-            "URL": st.column_config.LinkColumn("リンク"),
+            "URL": st.column_config.LinkColumn("リンク", display_text="詳細"),
         },
         hide_index=True,
         use_container_width=True,
