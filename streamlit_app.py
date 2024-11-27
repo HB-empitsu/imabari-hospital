@@ -111,4 +111,4 @@ else:
         ).add_to(m)
     
     # マップをストリームリットに表示
-    st_data = st_folium(m, use_container_width=True, returned_objects=[])
+    st_data = st_folium(m, height=400, use_container_width=True, returned_objects=[])
