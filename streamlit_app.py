@@ -5,7 +5,7 @@ import folium
 import streamlit as st
 
 st.set_page_config(
-    page_title="今治市の医療機関", page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None
+    page_title="今治市の医療機関", page_icon=None, initial_sidebar_state="auto", menu_items=None
 )
 st.title("今治市の医療機関")
 
